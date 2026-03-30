@@ -11,7 +11,7 @@ import Title from './Title.vue';
 </script>
 <style lang="scss" scoped>
 .footer-section {
-    background-color: #915aa1;
+    background: linear-gradient(to right, #efc6da 15%, #f5e9ee 75%);
     // background: url('../../assets/img/ticbcs_footer.jpg') no-repeat top center;
     background-size: cover;
     padding: 2rem 0;

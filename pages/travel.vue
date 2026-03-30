@@ -8,7 +8,7 @@
             <div class="travel-info-box">
                 <h1 class="title"><span class="type" :class="item.type === '鄰近景點' ? '' : 'first'">{{ item.type
                 }}</span>{{ item.title }}</h1>
-                <p v-html="item.content"></p>
+                <p class="info" v-html="item.content"></p>
                 <a class="link" :href="item.link" target="_blank">See More</a>
             </div>
 
@@ -140,6 +140,10 @@ const travelItemList = [
 
             .title {
                 font-size: 1.5rem;
+            }
+
+            .info{
+                color: $main-text-color;
             }
 
             .link {

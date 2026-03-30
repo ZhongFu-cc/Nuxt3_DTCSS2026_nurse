@@ -115,7 +115,7 @@ onMounted(() => {
             flex-direction: column;
             justify-content: center;
             gap: 3rem;
-            color: $main-color;
+            color: $main-text-color;
 
             // @media screen and (max-width: 1920px) {
             //     font-size: 1.2rem;

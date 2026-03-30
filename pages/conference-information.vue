@@ -94,6 +94,7 @@ import Banner from '@/components/layout/Banner.vue';
         justify-content: center;
 
         .meeting-info-box {
+            color: $main-text-color;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -112,6 +113,7 @@ import Banner from '@/components/layout/Banner.vue';
                 font-weight: bold;
                 font-size: 1.5rem;
                 margin-right: 1rem;
+                color: $main-text-color;
 
                 @media screen and (max-width: 768px) {
                     font-size: 1.2rem;
@@ -179,6 +181,7 @@ import Banner from '@/components/layout/Banner.vue';
     }
 
     .location {
+
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -191,6 +194,7 @@ import Banner from '@/components/layout/Banner.vue';
         margin: 0 auto;
 
         .title {
+            color: $main-text-color;
             font-weight: bold;
             font-size: 1.5rem;
             margin-right: 1rem;
@@ -203,6 +207,7 @@ import Banner from '@/components/layout/Banner.vue';
         .location-info {
             font-size: 1.5rem;
             font-weight: normal;
+            color: $main-text-color;
 
             @media screen and (max-width: 768px) {
                 font-size: 1.2rem;

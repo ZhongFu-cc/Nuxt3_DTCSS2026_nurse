@@ -111,7 +111,7 @@ import Banner from '@/components/layout/Banner.vue';
         }
 
         .welcome-content {
-            color: $main-color;
+            color: $main-text-color;
             flex: 1;
             padding: 0 20px;
             font-size: 1.5rem;
@@ -153,7 +153,7 @@ import Banner from '@/components/layout/Banner.vue';
             }
 
             .logo-name {
-                color: $main-color;
+                color: $main-text-color;
                 font-size: 1rem;
                 text-align: center;
             }
@@ -174,7 +174,7 @@ import Banner from '@/components/layout/Banner.vue';
             }
 
             .logo-name {
-                color: $main-color;
+                color: $main-text-color;
                 font-size: 1.2rem;
                 text-align: center;
             }

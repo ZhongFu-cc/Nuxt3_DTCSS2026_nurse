@@ -208,23 +208,23 @@ onMounted(() => {
         // Logo區域
         .logo-container {
             width: 30%;
-            height: 100%;
+            // height: 100%;
 
             .logo-link {
                 cursor: pointer;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                height: 100%;
+                // height: 100%;
 
                 .logo-image-box {
                     width: 40%;
-                    height: 100%;
+                    // height: 100%;
 
                     .logo {
                         width: 100%;
-                        height: 100%;
-                        object-fit: content;
+                        // height: 100%;
+                        object-fit: contain;
                         object-position: center center;
                     }
 
