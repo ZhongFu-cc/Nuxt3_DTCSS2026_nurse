@@ -172,6 +172,7 @@ const emits = defineEmits(['openMenu']);
 
 /**================================================================ */
 onMounted(() => {
+    handleScroll()
     window.addEventListener('scroll', handleScroll)
 })
 

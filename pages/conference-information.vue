@@ -51,6 +51,12 @@
 import Title from '@/components/layout/Title.vue';
 import Banner from '@/components/layout/Banner.vue';
 
+useSeoMeta({
+    title: '會議資訊',
+    description: '了解即將舉行的研討會的所有詳細資訊，包括日期、地點、議程等。保持資訊更新，並妥善規劃您的參與。',
+    keywords: 'conference information, TICBCS, ticbcs, TICBCS2026, ticbcs2026, 會議資訊, 台中國際會展中心, 台中國際乳癌研討會 , 乳癌研討會, 乳癌, 乳癌教育, 乳癌防治, 中華民國乳癌教育暨防治學會, 中國醫藥大學附設醫院, 中國醫藥大學, 台灣乳房醫學會, 中華民國外科醫學會, 會議時間, 會議地點, 議程',
+});
+
 </script>
 <style lang="scss" scoped>
 .common-section {

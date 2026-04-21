@@ -1,43 +1,43 @@
 <template>
     <div class="common-section">
         <!-- <img src="../assets/img/sponsor_list.png" alt=""> -->
-         <Title :title="title"></Title>
+        <Title :title="title"></Title>
         <!-- <div class="title">{{ title }}</div>/ -->
 
         <div class="2023-gallery" v-if="year === '2023'">
-                <div class="gallery">
-                    <div v-for="(group, groupIndex) in grouped2023Day1List" :key="groupIndex" class="image-group">
-                        <span v-for="(image, imgIndex) in group" :key="imgIndex" class="image-item">
-                            <img :src="image" alt="Sponsor Image" />
-                        </span>
-                    </div>
+            <div class="gallery">
+                <div v-for="(group, groupIndex) in grouped2023Day1List" :key="groupIndex" class="image-group">
+                    <span v-for="(image, imgIndex) in group" :key="imgIndex" class="image-item">
+                        <img :src="image" alt="Sponsor Image" />
+                    </span>
                 </div>
-        
-                <div class="gallery">
-                    <div v-for="(group, groupIndex) in grouped2023Day2List" :key="groupIndex" class="image-group">
-                        <span v-for="(image, imgIndex) in group" :key="imgIndex" class="image-item">
-                            <img :src="image" alt="Sponsor Image" />
-                        </span>
-                    </div>
+            </div>
+
+            <div class="gallery">
+                <div v-for="(group, groupIndex) in grouped2023Day2List" :key="groupIndex" class="image-group">
+                    <span v-for="(image, imgIndex) in group" :key="imgIndex" class="image-item">
+                        <img :src="image" alt="Sponsor Image" />
+                    </span>
                 </div>
+            </div>
         </div>
-       
+
         <div class="2023-gallery" v-if="year === '2024'">
-                <div class="gallery">
-                    <div v-for="(group, groupIndex) in grouped2024Day1List" :key="groupIndex" class="image-group">
-                        <span v-for="(image, imgIndex) in group" :key="imgIndex" class="image-item">
-                            <img :src="image" alt="Sponsor Image" />
-                        </span>
-                    </div>
+            <div class="gallery">
+                <div v-for="(group, groupIndex) in grouped2024Day1List" :key="groupIndex" class="image-group">
+                    <span v-for="(image, imgIndex) in group" :key="imgIndex" class="image-item">
+                        <img :src="image" alt="Sponsor Image" />
+                    </span>
                 </div>
-        
-                <div class="gallery">
-                    <div v-for="(group, groupIndex) in grouped2024Day2List" :key="groupIndex" class="image-group">
-                        <span v-for="(image, imgIndex) in group" :key="imgIndex" class="image-item">
-                            <img :src="image" alt="Sponsor Image" />
-                        </span>
-                    </div>
+            </div>
+
+            <div class="gallery">
+                <div v-for="(group, groupIndex) in grouped2024Day2List" :key="groupIndex" class="image-group">
+                    <span v-for="(image, imgIndex) in group" :key="imgIndex" class="image-item">
+                        <img :src="image" alt="Sponsor Image" />
+                    </span>
                 </div>
+            </div>
         </div>
 
 
@@ -68,12 +68,14 @@
 <script lang="ts" setup>
 import Title from '@/components/layout/Title.vue';
 
-const year = useRoute().params.year as string;
-console.log('year',typeof year);
-onMounted(() => {
-    // document.title = `Gallery - ${year}`;
-    console.log('Gallery page mounted for year:', year);
+useSeoMeta({
+    title: `Gallery - TICBCS`,
+    description: '台中國際乳癌研討會的精彩回顧，展示了過去幾年活動的精彩瞬間和重要時刻。瀏覽我們的畫廊，重溫每一屆研討會的亮點，見證乳癌研究和治療的進步，以及與會者的熱情參與。',
+    keywords: 'gallery, TICBCS, ticbcs, TICBCS2026, ticbcs2026, 台中國際乳癌研討會, 乳癌研討會, 乳癌, 乳癌教育, 乳癌防治, 中華民國乳癌教育暨防治學會, 中國醫藥大學附設醫院, 中國醫藥大學, 台灣乳房醫學會, 中華民國外科醫學會, 活動回顧, 活動照片',
 });
+
+const year = useRoute().params.year as string;
+
 
 const title = ref(`Gallery - ${year}`);
 
@@ -287,12 +289,14 @@ onUnmounted(() => {
                     object-fit: cover;
                 }
 
-                
-                
+
+
             }
+
             @media screen and (max-width: 768px) {
                 // width: calc(100% / 2 - 2rem);
-                justify-content: center ;
+                justify-content: center;
+
                 .image-item {
                     // width: calc(100% / 2 );
                     flex: 1;
