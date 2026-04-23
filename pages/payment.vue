@@ -61,7 +61,7 @@
                                 RATE).toFixed(2) }}</td>
                             <td class="last-col">{{
                                 enums.payMentStatus[item.status]
-                            }}</td>
+                                }}</td>
                             <!-- <td v-if="memberInfo.country === 'Taiwan'" class="last-col">
                                 {{ memberInfo.remitAccountLast5 }}
                             </td> -->
@@ -381,7 +381,6 @@ onMounted(() => {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background: url('assets/img/topbs_background-image.jpg') no-repeat center center;
 
         .table-box {
             display: flex;
