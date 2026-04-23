@@ -19,15 +19,15 @@
             <div class="agenda-info">
                 <h1 class="title">Agenda</h1>
                 <div class="agenda-info-box">
-                    <!-- <img src="../assets/img/2024-TICBCS-agenda.png" alt=""> -->
-                    <!-- <div class="download"> -->
-                    <!-- <a href="/files/TICBCS-Agenda.pdf" target="_blank" download class="agenda-download">
-                        TICBCS 議程下載
-                    </a>
-                    <a href="https://lihi2.com/StUJt" target="_blank" download class="agenda-download">
-                        TICBCS 手冊下載
-                    </a> -->
-                    <!-- </div> -->
+                    <img src="/img/agenda.jpg" alt="">
+                    <div class="download">
+                        <a href="/files/agenda.pdf" target="_blank" download class="agenda-download">
+                            TICBCS 議程下載
+                        </a>
+                        <!-- <a href="https://lihi2.com/StUJt" target="_blank" download class="agenda-download">
+                            TICBCS 手冊下載
+                        </a> -->
+                    </div>
                 </div>
             </div>
 
@@ -142,12 +142,11 @@ useSeoMeta({
         }
 
         .agenda-download {
-            background-color: #D27DA6;
+            background: linear-gradient(180deg, #ee9ab9 0%, #8f8dc2 100%);
             display: block;
             margin: 2rem auto 0 auto;
             padding: 0.5rem 0;
             color: white;
-            border: 1px solid black;
             border-radius: 0.3rem;
             text-align: center;
             width: 70%;
