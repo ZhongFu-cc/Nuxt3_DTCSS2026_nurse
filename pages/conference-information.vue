@@ -21,9 +21,9 @@
                 <div class="agenda-info-box">
                     <NuxtImg v-for="agenda in agendas" :key="agenda.publishFileId" :src="envMinio + agenda.path" :alt="agenda.alt"
                         densities="x1 x2" width="200" class="gallery-image" loading="lazy" />
-                    <!-- <img src="/img/agenda.jpg" alt=""> -->
+                    <!-- <img src="/img/agenda.jpg" alt=""> -->s
                     <div class="download">
-                        <a href="/files/agenda.pdf" target="_blank" download class="agenda-download">
+                        <a v-if="agendaPdf && agendaPdf.path" :href="envMinio + agendaPdf.path" target="_blank" download class="agenda-download">
                             TICBCS 議程下載
                         </a>
                         <!-- <a href="https://lihi2.com/StUJt" target="_blank" download class="agenda-download">
@@ -68,10 +68,18 @@ const fetchAgendaFile = async () => {
     try {
         const res: any = await CSRrequest.get(`/publish-file/agenda`)
         agendas.value = res.data
-        res.data.forEach((agenda: any) => {
-            console.log('agenda', agenda.path)
+    } catch (error) {
+        console.error('Error fetching agenda file:', error);
+    }
+}
+
+const agendaPdf = ref<any>(null)
+const fetchAgendaPdf = async () => {
+   try {
+        const res: any = await CSRrequest.get(`/publish-file/programBook`, {
+
         })
-        console.log(res.data)
+        agendaPdf.value = res.data[0]
     } catch (error) {
         console.error('Error fetching agenda file:', error);
     }
@@ -80,6 +88,7 @@ const fetchAgendaFile = async () => {
 
 onMounted(() => {
     fetchAgendaFile();
+    fetchAgendaPdf();
 })
 </script>
 <style lang="scss" scoped>
