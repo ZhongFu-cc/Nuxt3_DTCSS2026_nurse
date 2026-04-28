@@ -77,7 +77,7 @@
                 </div>
 
                 <!-- 會員選單區塊 -->
-                <div class="menu-item gallery-box">
+                <!-- <div class="menu-item gallery-box">
                     <div v-if="isLogin" class="sub-menu-title" @click="memberMenuState.toggleMenu">會員<el-icon>
                             <ElIconArrowDown />
                         </el-icon></div>
@@ -87,7 +87,7 @@
                         <nuxt-link class="sub-menu-item" @click="handleLogout">登出</nuxt-link>
                     </div>
                     <nuxt-link v-if="!isLogin" to="/login">登入</nuxt-link>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
