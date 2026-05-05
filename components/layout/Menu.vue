@@ -448,7 +448,7 @@ onMounted(() => {
                 gap: 0.8rem;
             }
 
-            @media screen and (max-width: 1380px) {
+            @media screen and (max-width: 1440px) {
                 font-size: 1rem;
 
                 .secondary-menu-box {
