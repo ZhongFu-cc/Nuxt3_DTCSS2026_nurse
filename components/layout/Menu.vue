@@ -71,7 +71,7 @@
                             </el-icon></div>
                         <div class="sub-menu-box" v-if="secondaryMenuState.isOpen">
                             <nuxt-link v-for="menu in secondaryMenuItems" :key="menu.activeKey" class="sub-menu-item"
-                                :to="menu.route" @click="pcModeActiveItemState.setActiveItem(menu.activeKey)"
+                                :to="localPath(menu.route)" @click="pcModeActiveItemState.setActiveItem(menu.activeKey)"
                                 :class="pcModeActiveItemState.validActive(menu.activeKey)">{{ menu.name }}</nuxt-link>
 
                             <div class="gallery-menu-box menu-box" @click="galleryMenuState.toggleMenu">
@@ -309,7 +309,7 @@ onMounted(() => {
 
         // Logo區域
         .logo-container {
-            width: 30%;
+            width: 24%;
 
             .logo-link {
                 cursor: pointer;
@@ -327,7 +327,7 @@ onMounted(() => {
                     }
 
                     @media screen and (max-width: 1024px) {
-                        width: 70%;
+                        width: 60%;
                     }
 
                     @media screen and (max-width: 940px) {
@@ -371,7 +371,7 @@ onMounted(() => {
 
             .menu-title {
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 gap: 0.2rem;
             }
 
@@ -388,13 +388,15 @@ onMounted(() => {
                 border-radius: 0.5rem;
                 display: flex;
                 flex-direction: column;
+                align-items: flex-start;
                 gap: 1rem;
                 z-index: 1000;
-                width: 7rem;
+                width: 8rem;
 
                 .menu-title {
                     color: white;
                     font-size: 1.2rem;
+                    padding: 0;
 
                     &:hover {
                         cursor: pointer;
@@ -405,6 +407,7 @@ onMounted(() => {
                 .sub-menu-item {
                     color: white;
                     font-size: 1.2rem;
+                    text-align: left;
 
                     &:hover {
                         cursor: pointer;
@@ -420,6 +423,7 @@ onMounted(() => {
                     font-size: 1.2rem;
                     text-align: left;
                     text-align: center;
+                    margin-left: 0;
 
                     &:hover {
                         color: #FF5529;
