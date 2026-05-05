@@ -11,15 +11,16 @@ export default {
     },
 
     auth() {
-        return localStorage.getItem('Authorization-member')
+        return useCookie('Authorization-member').value
     },
 
     createOptions(method: string, options: any = {}) {
+        const token = this.auth()
         return {
             baseURL: this.config().public.apiBase,
             method,
             headers: {
-                'Authorization-member': this.auth() || '',
+                'Authorization-member': token ? `Bearer ${token}` : '',
             },
             onResponseError({ response }: { response: any }) {  // 加上型別
                 console.error(response)

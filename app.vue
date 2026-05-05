@@ -79,7 +79,7 @@ const handleVaildateLogin = () => {
 
 
 onMounted(() => {
-  setLocale('zh')
+  // setLocale('zh')
 })
 
 onBeforeMount(() => {

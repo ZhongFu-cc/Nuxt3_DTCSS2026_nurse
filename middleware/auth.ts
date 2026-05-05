@@ -1,14 +1,16 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
     const isLogin = useState('isLogin', () => false)
     const memberInfo = useState('memberInfo', () => null) as Ref<any>
+    const localePath = useLocalePath()
+
 
     const token = useCookie('Authorization-member').value
     if (!token) {
         isLogin.value = false
         memberInfo.value = null
 
-        if (to.path !== '/login') {
-            return navigateTo('/login')
+        if (to.path !== localePath('/login')) {
+            return navigateTo(localePath('/login'))
         }
         return
     }
@@ -24,18 +26,34 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
                 useCookie('Authorization-member').value = null
                 isLogin.value = false
                 memberInfo.value = null
-                return navigateTo('/login')
+                return navigateTo(localePath('/login'))
             }
-        } catch (error) {
-            const tokenCookie = useCookie('Authorization-member')
-            tokenCookie.value = null
-            isLogin.value = false
-            memberInfo.value = null
-            return navigateTo('/login')
+        } catch (error: any) {
+            // 1. 在伺服器端終端機列印錯誤，方便開發時除錯
+            if (import.meta.server) {
+            }
+
+            // 2. 只有在確定是「登入失效」的情況下才清空
+            // 檢查 status 是否為 401，或是後端自定義的失效代碼
+            const isAuthError = error.response?.status === 401;
+
+            if (isAuthError) {
+                // 強制指定 path: '/' 確保清除的是正確的 Cookie
+                const tokenCookie = useCookie('Authorization-member', { path: '/' });
+                tokenCookie.value = null;
+                isLogin.value = false;
+                memberInfo.value = null;
+
+                // 導向登入頁
+                const loginPath = localePath('/login');
+                if (to.path !== loginPath) {
+                    return navigateTo(loginPath);
+                }
+            }
         }
     }
 
-    if (isLogin.value && to.path === '/login') {
-        return navigateTo('/')
+    if (isLogin.value && to.path === localePath('/login')) {
+        return navigateTo(localePath('/'))
     }
 })
