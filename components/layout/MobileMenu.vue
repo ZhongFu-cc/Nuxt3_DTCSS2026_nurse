@@ -102,8 +102,8 @@ const handleLogout = () => {
         cancelButtonText: t('cancel'),
         type: 'warning',
     }).then(() => {
-        const tokenCookie = useCookie('Authorization-member');
-        tokenCookie.value = null;
+        const token = ref<string | null>(localStorage.getItem('Authorization-member') || null);
+        token.value = null;
         isLogin.value = false;
         router.push(localePath('/login'));
         console.log('登出成功');

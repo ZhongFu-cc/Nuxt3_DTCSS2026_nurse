@@ -125,13 +125,6 @@ const setFormLabelPosotion = () => {
         formatLabelPosition.value = 'left'; // 否則設置為 'left'
     }
 }
-
-const tokenCookie = useCookie('Authorization-member', {
-    maxAge: 60 * 60 * 24,
-    path: '/',
-    watch: true, // 增加同步穩定性
-});
-
 const login = async (formEl: FormInstance | undefined) => {
     if (!formEl) return;
     formEl.validate(async (valid) => {
@@ -151,10 +144,8 @@ const login = async (formEl: FormInstance | undefined) => {
                 return;
             }
             if (res.data.isLogin) {
-                localStorage.setItem(res.data.tokenName, res.data.tokenValue);
-                tokenCookie.value = res.data.tokenValue;
-
                 await nextTick();
+                localStorage.setItem(res.data.tokenName, 'Bearer ' + res.data.tokenValue);
                 formEl.resetFields();
                 useAuth().checkLoginState();
                 router.push(localePath('/member-center'))

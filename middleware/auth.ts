@@ -4,7 +4,11 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     const localePath = useLocalePath()
 
 
-    const token = useCookie('Authorization-member').value
+    if (process.server) {
+        return;
+    }
+    const token = localStorage.getItem('Authorization-member') as string | null
+
     if (!token) {
         isLogin.value = false
         memberInfo.value = null
@@ -23,7 +27,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
                 isLogin.value = true
                 memberInfo.value = res.data
             } else {
-                useCookie('Authorization-member').value = null
+                localStorage.removeItem('Authorization-member')
                 isLogin.value = false
                 memberInfo.value = null
                 return navigateTo(localePath('/login'))
@@ -38,9 +42,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
             const isAuthError = error.response?.status === 401;
 
             if (isAuthError) {
-                // 強制指定 path: '/' 確保清除的是正確的 Cookie
-                const tokenCookie = useCookie('Authorization-member', { path: '/' });
-                tokenCookie.value = null;
+                localStorage.removeItem('Authorization-member');
                 isLogin.value = false;
                 memberInfo.value = null;
 

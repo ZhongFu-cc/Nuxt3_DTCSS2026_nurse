@@ -238,8 +238,8 @@ const handleLogout = () => {
         cancelButtonText: t('cancel'),
         type: 'warning',
     }).then(() => {
-        const tokenCookie = useCookie('Authorization-member');
-        tokenCookie.value = null;
+        const token = ref<string | null>(localStorage.getItem('Authorization-member') || null);
+        token.value = null;
         isLogin.value = false;
         memberMenuState.value.isOpen = false;
         useRouter().push(localPath('/'));
