@@ -17,7 +17,7 @@
 
                         <div class="warning-text" style="text-align: center;font-size: 1.2rem;">{{ isFormLocked ?
                             '報名時間已截止，感謝您的熱情參與' : ''
-                        }}</div>
+                            }}</div>
 
                         <div class="things-to-note">
                             <h2>{{ t('registrationReminder') }}</h2>
@@ -174,8 +174,8 @@ const country = ref(countryJson);
 const lang = ref('');
 
 const categorys = ref([
-    { label: '護理師(慈濟體系)', value: '2' },
-    { label: '護理師(非慈濟體系)', value: '3' },
+    { label: '護理人員(慈濟體系)', value: '2' },
+    { label: '護理人員', value: '3' },
 ])
 
 const getCaptcha = async () => {
