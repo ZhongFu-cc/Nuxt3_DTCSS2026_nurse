@@ -1,52 +1,26 @@
 <template>
     <ClientOnly>
-        <section class="top-section">
-            <div class="menu-container" :class="[{ 'is-active': isActive }]">
+        <div class="menu-container">
 
-                <!-- 漢堡選單 -->
-                <!-- <div class="mobile-menu-box">
-                    <div class="hamburger-icon">
-                        <div class="container">
-                            <div class="hamburger" :class="{ 'is-active': isActive }" id="hamburger-1"
-                                @click="openMenu">
-                                <span class="line" :class="{ 'is-scroll': isScroll }"></span>
-                                <span class="line" :class="{ 'is-scroll': isScroll }"></span>
-                                <span class="line" :class="{ 'is-scroll': isScroll }"></span>
-                            </div>
-                        </div>
+            <div class="logo-container">
+                <nuxt-link class="logo-link" :to="localPath('/')">
+                    <div class="logo-image-box">
+                        <img class="logo" src="/img/logo.png" alt="DTCSS Logo" />
                     </div>
-
-                    <div class="member-center">
-                        <nuxt-link :to="localPath('/member-center')">
-                            <img v-if="!isScroll" src="@/assets/img/user.svg" alt="">
-                            <img v-if="isScroll" src="@/assets/img/user2.svg" alt="">
-                        </nuxt-link>
-                    </div>
-                </div> -->
-
-                <!-- Logo 區塊 -->
-                <div class="logo-container" v-if="!isActive">
-                    <nuxt-link class="logo-link" :to="localPath('/')" @click="pcModeActiveItemState.setActiveItem('')">
-                        <div class="logo-image-box">
-                            <img class="logo" src="/img/logo.png" alt="DTCSS Logo" />
-                        </div>
-                    </nuxt-link>
-                </div>
+                </nuxt-link>
+            </div>
 
 
-                <div class="menu-box">
-                    <img class="translation-icon" src="@/assets/img/translation1.svg" alt="earth icon"
-                        @click="translationMenuState.toggleMenu" />
-                    <!-- <img v-if="!isScroll" class="translation-icon" src="@/assets/img/translation2.svg" alt="earth icon"
-                        @click="translationMenuState.toggleMenu" /> -->
+            <div class="menu-box">
+                <img class="translation-icon" src="@/assets/img/translation1.svg" alt="earth icon"
+                    @click="translationMenuState.toggleMenu" />
 
-                    <div class="sub-menu-box last-sub-menu-box" v-if="translationMenuState.isOpen">
-                        <el-button @click="setLang('zh')">繁體中文</el-button>
-                        <el-button @click="setLang('en')">English</el-button>
-                    </div>
+                <div class="sub-menu-box last-sub-menu-box" v-if="translationMenuState.isOpen">
+                    <el-button @click="setLang('zh')">繁體中文</el-button>
+                    <el-button @click="setLang('en')">English</el-button>
                 </div>
             </div>
-        </section>
+        </div>
     </ClientOnly>
 </template>
 
@@ -57,11 +31,6 @@ const isLogin = useState('isLogin', () => false)
 const localPath = useLocalePath()
 const { t, setLocale } = useI18n()
 
-const initLang = () => {
-    const savedLang = localStorage.getItem('lang') || 'zh';
-    console.log('Saved language:', savedLang);
-    setLocale(savedLang);
-}
 
 const setLang = (lang: string) => {
     translationMenuState.value.isOpen = false;
@@ -69,483 +38,82 @@ const setLang = (lang: string) => {
     setLocale(lang);
 }
 
-// 偵測滾輪位置，更換 menu 背景色
-const isScroll = ref(false)
-function handleScroll() {
-    isScroll.value = window.scrollY > 0
-}
 
-// 菜單基礎項目
-const primaryMenuItems = computed(() => [
-    // { name: t('aboutUs'), route: '/about-us', activeKey: 'aboutUs' },
-    // { name: t('conferenceInformation'), route: '/conference-information', activeKey: 'conferenceInformation' },
-    // { name: t('seminarRegistration'), route: '/seminar-registration', activeKey: 'seminarRegistration' },
-])
-
-// 次級菜單項目 (在螢幕寬度不足以顯示所有 primary menu 項目時會顯示在 sub-menu 中)
-const secondaryMenuItems = computed(() => [
-    // { name: t('transportation'), route: '/transportation', activeKey: 'transportation' },
-    // { name: t('travel'), route: '/travel', activeKey: 'travel' },
-    // { name: t('sponsorList'), route: '/sponsor-list', activeKey: 'sponsorList' },
-    // { name: t('mascot'), route: '/mascot', activeKey: 'mascot' },
-])
-
-// Gallery 菜單項目
-const galleryMenuItem = {
-    // name: 'Gallery', route: '', activeKey: 'gallery', subMenu: [
-    //     { name: 'Gallery 2023', route: '/gallery/2023', activeKey: 'gallery2023' },
-    //     { name: 'Gallery 2024', route: '/gallery/2024', activeKey: 'gallery2024' },
-    //     { name: 'Gallery 2025', route: '/gallery/2025', activeKey: 'gallery2025' },
-    // ]
-}
-
-// 次級菜單狀態
-const secondaryMenuState = ref({
-    isOpen: false,
-    toggleMenu: () => {
-        secondaryMenuState.value.isOpen = !secondaryMenuState.value.isOpen
-        galleryMenuState.value.isOpen = false;
-        memberMenuState.value.isOpen = false;
-        translationMenuState.value.isOpen = false;
-    }
-})
-
-// Gallery 菜單狀態
-const galleryMenuState = ref({
-    isOpen: false,
-    toggleMenu: () => {
-        galleryMenuState.value.isOpen = !galleryMenuState.value.isOpen
-        // secondaryMenuState.value.isOpen = false;
-        memberMenuState.value.isOpen = false;
-        translationMenuState.value.isOpen = false;
-
-    }
-})
-
-const memberMenuState = ref({
-    isOpen: false,
-    toggleMenu: () => {
-        memberMenuState.value.isOpen = !memberMenuState.value.isOpen
-        secondaryMenuState.value.isOpen = false;
-        galleryMenuState.value.isOpen = false;
-        translationMenuState.value.isOpen = false;
-
-    }
-})
 
 const translationMenuState = ref({
     isOpen: false,
     toggleMenu: () => {
         translationMenuState.value.isOpen = !translationMenuState.value.isOpen
-        secondaryMenuState.value.isOpen = false;
-        galleryMenuState.value.isOpen = false;
     }
 })
 
-// PC 模式下 active menu 狀態
-const pcModeActiveItemState = ref({
-    activedItem: '',
-    setActiveItem: (item: string) => {
-        pcModeActiveItemState.value.activedItem = item
-        secondaryMenuState.value.isOpen = false;
-        galleryMenuState.value.isOpen = false;
-        memberMenuState.value.isOpen = false;
-    },
-    validActive: (item: string) => {
-        return pcModeActiveItemState.value.activedItem === item ? 'active' : ''
-    }
-})
-
-const handleLogout = () => {
-    ElMessageBox.confirm(t('logoutConfirmation'), t('logoutTitle'), {
-        confirmButtonText: t('confirm'),
-        cancelButtonText: t('cancel'),
-        type: 'warning',
-    }).then(() => {
-        const token = ref<string | null>(localStorage.getItem('Authorization-member') || null);
-        token.value = null;
-        isLogin.value = false;
-        memberMenuState.value.isOpen = false;
-        useRouter().push(localPath('/'));
-    }).catch(() => {
-        // 取消登出
-    });
-}
 
 
-/**================================================================ */
-
-const isActive = ref(false);
-const props = defineProps<{
-    isActive: boolean;
-}>();
-
-watch(() => props.isActive, (value) => {
-    isActive.value = value;
-});
-
-
-const openMenu = () => {
-    isActive.value = !isActive.value;
-    emits('openMenu', isActive.value);
-}
-const emits = defineEmits(['openMenu']);
-
-
-
-
-
-
-
-/**================================================================ */
-onMounted(() => {
-    handleScroll()
-    window.addEventListener('scroll', handleScroll)
-    // initLang();
-})
 
 </script>
 <style lang="scss" scoped>
-.top-section {
+.menu-container {
+    background-color: #19254e;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 
-    .menu-container {
-        display: flex;
-        position: fixed;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-        top: 0;
-        z-index: 10;
-        width: 100%;
-        height: 6.5rem;
-        padding: 0.5rem 0rem;
-        border-bottom: 8px solid #915aa1;
-        background-color: #19254e;
+    .logo-container {
+        width: 30%;
 
+        .logo-image-box {
+            width: 27rem;
+            height: 100%;
 
-        @media screen and (max-width: 1920px) {
-            height: 4.5rem;
-            gap: 40rem;
-            // justify-content: space-around;
-        }
-
-        @media screen and (max-width: 940px) {
-            gap: 25rem;
-        }
-
-        @media screen and (max-width: 468px) {
-            gap: 5rem;
-            justify-content: space-around;
-        }
-
-        // Logo區域
-        .logo-container {
-            .logo-link {
-                cursor: pointer;
-                // display: flex;
-                align-items: center;
-                justify-content: center;
-
-                .logo-image-box {
-                    width: 70%;
-
-                    .logo {
-                        width: 100%;
-                        object-fit: contain;
-                        object-position: center center;
-                    }
-
-                    @media screen and (max-width: 1024px) {
-                        width: 60%;
-                    }
-
-                    @media screen and (max-width: 768px) {
-                        width: 70%;
-                    }
-
-                }
-
-
-                .logo-title {
-                    font-size: 1.5rem;
-                    color: #59413C;
-                }
-            }
-        }
-
-        .menu-box {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            gap: 1.5rem;
-            position: relative;
-
-            .menu-item,
-            .menu-title {
-                text-align: center;
-                color: #59413C;
-                font-size: 1.2rem;
-                padding: 0.5rem;
-                border-radius: 8px;
-
-                &:hover {
-                    cursor: pointer;
-                    background-color: #915aa1;
-                    color: white;
-                }
-            }
-
-            .menu-title {
-                display: flex;
-                align-items: flex-start;
-                gap: 0.2rem;
-            }
-
-            .hidden-menu-box {
-                display: none;
-            }
-
-            .sub-menu-box {
-                position: absolute;
-                top: 2.7rem;
-                left: -4rem;
-                background-color: black;
-                padding: 1rem 1.5rem;
-                border-radius: 0.5rem;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-                z-index: 1000;
-                width: 8rem;
-
-                .menu-title {
-                    color: white;
-                    font-size: 1.2rem;
-                    padding: 0;
-
-                    &:hover {
-                        cursor: pointer;
-                        color: #FF5529;
-                    }
-                }
-
-                .sub-menu-item {
-                    color: white;
-                    font-size: 1.2rem;
-                    text-align: left;
-
-                    &:hover {
-                        cursor: pointer;
-                        color: #FF5529;
-                    }
-                }
-
-                .el-button {
-                    background-color: transparent;
-                    color: white;
-                    border: none;
-                    padding: 0;
-                    font-size: 1.2rem;
-                    text-align: left;
-                    text-align: center;
-                    margin-left: 0;
-
-                    &:hover {
-                        color: #FF5529;
-                        cursor: pointer;
-                    }
-                }
-
-                &.last-sub-menu-box {
-                    left: -8.5rem;
-                    width: 8rem;
-                }
-            }
-
-            .translation-icon {
-                width: 1.5rem;
-                height: 1.5rem;
+            .logo {
+                width: 27rem;
+                height: 100%;
                 object-fit: contain;
-                object-position: center center;
-
-                &:hover {
-                    cursor: pointer;
-                }
             }
-
-            @media screen and (max-width: 1560px) {
-                gap: 0.8rem;
-            }
-
-            @media screen and (max-width: 1440px) {
-                font-size: 1rem;
-
-                .secondary-menu-box {
-                    display: none;
-                }
-
-                .hidden-menu-box {
-                    display: block;
-                }
-
-            }
-
-            @media screen and (max-width: 940px) {
-                // display: none;
-            }
-        }
-
-    }
-
-    .scrolled-menu-section {
-        background-color: black;
-        transition: background-color 0.3s ease-in-out;
-
-
-        .menu-box {
-
-            .menu-item,
-            .menu-title {
-                color: white;
-
-                &:hover {
-                    color: #FF5529;
-                    background-color: black;
-                }
-
-                &.active {
-                    color: #FF5529;
-                }
-            }
-
-            .sub-menu-box {
-                background-color: white;
-                border: 1px solid #915aa1;
-
-                .menu-title {
-                    color: black;
-
-                    &:hover {
-                        color: #FF5529;
-                    }
-                }
-
-                .sub-menu-item {
-                    color: black;
-
-                    &:hover {
-                        color: #FF5529;
-                    }
-                }
-
-                .el-button {
-                    background-color: transparent;
-                    color: black;
-                    border: none;
-                    padding: 0;
-                    font-size: 1.2rem;
-                    text-align: left;
-                    text-align: center;
-
-                    &:hover {
-                        color: #FF5529;
-                        cursor: pointer;
-                    }
-                }
-            }
-
         }
     }
 
-    .mobile-menu-box {
-        display: none;
-        align-items: center;
-        width: 100%;
-
-        @media screen and (max-width: 940px) {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-        }
-
-
-    }
-
-    .member-center {
+    .menu-box {
         width: 30%;
         display: flex;
         justify-content: flex-end;
-        margin-top: 5px;
+        align-items: center;
+        position: relative;
 
-        img {
+        .translation-icon {
             width: 1.5rem;
             height: 1.5rem;
-            object-fit: contain;
-            object-position: center center;
             cursor: pointer;
-
-            &:hover {
-                filter: brightness(0.8);
-            }
         }
 
-    }
-
-    .hamburger-icon {
-        display: flex;
-        justify-content: flex-start;
-
-
-        .hamburger .line {
-            width: 1.5rem;
-            height: 3px;
-            background-color: #000;
-            margin-top: 5px;
-            display: block;
-            -webkit-transition: all 0.3s ease-in-out;
-            -o-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
-
-
-
-            &:hover {
-                cursor: pointer;
-            }
-
-            &.is-scroll {
-                background-color: white !important;
-            }
-        }
-
-        #hamburger-1.is-active .line:nth-child(2) {
+        .sub-menu-box {
+            position: absolute;
+            top: 2.5rem;
+            right: -3rem;
             background-color: white;
-            opacity: 0;
-        }
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 1rem;
+            border: #19254e solid 1px;
+            border-radius: 8px;
 
-        #hamburger-1.is-active .line:nth-child(1) {
-            background-color: white;
-            transform: 0.5s;
+            .el-button {
+                color: #19254e;
+                padding: 0.25rem 0.5rem;
+                width: 100%;
+                text-align: left;
+                margin-left: 0;
 
-            rotate: 360deg;
-            -webkit-transform: translateY(7.9px) rotate(47deg);
-            -ms-transform: translateY(7.9px) rotate(47deg);
-            -o-transform: translateY(7.9px) rotate(47deg);
-            transform: translateY(7.9px) rotate(47deg);
-            border-radius: 3px;
-        }
+                border: none;
 
-        #hamburger-1.is-active .line:nth-child(3) {
-            background-color: white;
-            transform: 0.5s;
-            rotate: 360deg;
-
-
-            -webkit-transform: translateY(-8.4px) rotate(-47deg);
-            -ms-transform: translateY(-8.4px) rotate(-47deg);
-            -o-transform: translateY(-8.4px) rotate(-47deg);
-            transform: translateY(-8.4px) rotate(-47deg);
-            border-radius: 3px;
+                &:hover {
+                    background-color: #1e2a6c;
+                    color: white;
+                }
+            }
         }
 
     }

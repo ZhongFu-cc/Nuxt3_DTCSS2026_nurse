@@ -5,23 +5,15 @@
             <div class="content">
                 <div class="conference-info-box">
 
-                    <!-- <el-button v-for="item in locales" :key="item" @click="setLocale(item.code)">{{ item.name
-                        }}</el-button> -->
-                    <h1 class="topic">「Good line Good life」</h1>
+                    <h1 class="topic">Good line Good life - 護理場</h1>
                     <h1 class="topic">大林慈濟第十四屆血液透析瘻管治療與照護國際研討會</h1>
-                    <p>{{ t('eventDate') }}</p>
+                    <p class="event-date">{{ t('eventDate') }}</p>
                     <p>{{ t('eventTime') }}​</p>
                     <p>{{ t('eventLocation') }}</p>
-                    <!-- <div class="btn-box">
-                        <el-button class="agenda-download-btn" type="primary" size="large">議程表</el-button>
-                        <el-button class="add-calendar-btn" type="primary" size="large">
-                            <el-icon><ElIconCalendar /></el-icon><span>加入行事曆</span>
-                        </el-button>
-                        
-                    </div> -->
                 </div>
                 <div class="conference-registration-box">
-                    <el-form class="registration-form" :model="formData" ref="registrationForm" label-position="top">
+                    <el-form class="registration-form" :model="formData" ref="registrationForm" label-position="top"
+                        :rules="formRules" :validate-on-rule-change="false">
 
                         <div class="warning-text" style="text-align: center;font-size: 1.2rem;">{{ isFormLocked ?
                             '報名時間已截止，感謝您的熱情參與' : ''
@@ -33,42 +25,43 @@
                                 <li>{{ t('registrationInfo1') }}</li>
                                 <!-- <li v-if="formData.category === '9'">報名後，可至註冊信箱點擊付款連結，進行付款，請於24小時內完成繳費，超過24小時須重新報名。</li> -->
                                 <li>{{ t('registrationInfo2') }}</li>
+                                <li>{{ t('registrationInfo3') }}</li>
                                 <!-- <li v-if="formData.category === '9'">本活動不提供退費</li> -->
                             </ul>
                         </div>
 
-                        <span class="warning-text">{{ formData.category === '9' && nurseCount > 400 ? '護理人員人數已達上限' : ''
-                            }}</span>
-
-
-                        <!-- <el-form-item label="報名分類" prop="category" :rules="formRulesTW.category">
-                            <el-radio-group v-model="formData.category">
-                                <el-radio value="8">9/6 醫師手術直播研討會</el-radio>
-                                <el-radio value="9">9/7 護理人員研討會</el-radio>
-                                <el-radio value="10">9/7 護理人員研討會_慈濟體系專區</el-radio>
-                            </el-radio-group>
-                        </el-form-item> -->
                         <div class="form-section">
                             <div class="left-section">
-
-                                <el-form-item v-if="formData.category === '8'" prop="country" :label="t('country')"
-                                    :rules="formRulesTW.country">
+                                <el-form-item prop="country" :label="t('country')">
                                     <el-select v-model="formData.country" filterable :placeholder="t('selectCountry')">
                                         <el-option v-for="item in country" :key="item" :label="item"
                                             :value="item"></el-option>
                                     </el-select>
                                 </el-form-item>
 
-                                <el-form-item :label="t('chineseName')" prop="chineseName"
-                                    :rules="formRulesTW.chineseName">
+                                <el-form-item :label="t('category')" prop="category">
+                                    <el-radio-group v-model="formData.category" filterable
+                                        :placeholder="t('selectCategory')">
+                                        <el-radio v-for="item in categorys" :key="item.value" :label="item.label"
+                                            :value="item.value"></el-radio>
+                                    </el-radio-group>
+                                </el-form-item>
+
+                                <el-form-item :label="t('chineseName')" prop="chineseName">
                                     <el-input v-model="formData.chineseName" :placeholder="t('chineseName')"></el-input>
                                 </el-form-item>
 
-                                <el-form-item :label="t('idCard')" prop="idCard" :rules="formRulesTW.idCard">
-                                    <el-input v-model="formData.idCard" :placeholder="t('idCard')"></el-input>
-                                </el-form-item>
+                                <div class="english-name">
+                                    <el-form-item :label="t('firstName')" prop="firstName">
+                                        <el-input v-model="formData.firstName" :placeholder="t('firstName')"></el-input>
+                                    </el-form-item>
 
-                                <el-form-item :label="t('email')" prop="email" :rules="formRulesTW.email">
+                                    <el-form-item :label="t('lastName')" prop="lastName">
+                                        <el-input v-model="formData.lastName" :placeholder="t('lastName')"></el-input>
+                                    </el-form-item>
+                                </div>
+
+                                <el-form-item :label="t('email')" prop="email">
                                     <el-input v-model="formData.email" :placeholder="t('email')"></el-input>
                                 </el-form-item>
 
@@ -76,54 +69,64 @@
                                     <el-input v-model="formData.confirmEmail"
                                         :placeholder="t('confirmEmail')"></el-input>
                                 </el-form-item>
-                                <el-form-item :label="t('phoneNum')" prop="phone" :rules="formRulesTW.phone">
-                                    <el-input v-model="formData.phone" :placeholder="t('phoneNum')"></el-input>
+
+                                <div class="member-phone required">
+                                    <el-form-item class="country-code" :label="t('phoneNum')" prop="countryCode">
+                                        <div class="country-code-inner">
+                                            <el-input :disabled="formData.country === 'Taiwan'"
+                                                v-model="formData.countryCode" placeholder="Country Code"></el-input>
+                                            <span>-</span>
+                                        </div>
+                                    </el-form-item>
+                                    <el-form-item :class="lang === 'zh' ? 'domestic-phone-num' : 'oversea-phone-num'"
+                                        :label="t('phoneNum')" prop="phoneNum">
+                                        <el-input v-model="formData.phoneNum"></el-input>
+                                    </el-form-item>
+                                </div>
+
+
+                                <!-- <el-form-item :label="t('password')" prop="password">
+                                    <el-input v-model="formData.password" :placeholder="t('password')"
+                                        type="password"></el-input>
                                 </el-form-item>
+
+                                <el-form-item :label="t('confirmPassword')" prop="confirmPassword"
+                                    :rules="confirmPasswordRule">
+                                    <el-input v-model="formData.confirmPassword" :placeholder="t('confirmPassword')"
+                                        type="password"></el-input>
+                                </el-form-item>
+ -->
+
+
+
                             </div>
 
                             <div class="right-section">
 
-                                <el-form-item v-if="formData.category === '8'" :label="t('hospital')" prop="receipt"
-                                    :rules="formRulesTW.receipt">
+                                <el-form-item v-if="formData.category === '2'" :label="t('hospital')" prop="receipt">
                                     <el-input v-model="formData.receipt" :placeholder="t('hospital')"></el-input>
                                 </el-form-item>
 
-                                <el-form-item :label="t('affiliation')" prop="affiliation"
-                                    :rules="formRulesTW.affiliation">
+                                <el-form-item v-if="formData.category === '3'" :label="t('hospital1')" prop="receipt">
+                                    <el-input v-model="formData.receipt" :placeholder="t('hospital1')"></el-input>
+                                </el-form-item>
+
+                                <el-form-item :label="t('affiliation')" prop="affiliation">
                                     <el-input v-model="formData.affiliation" :placeholder="t('affiliation')"></el-input>
                                 </el-form-item>
 
-                                <el-form-item :label="t('jobTitle')" prop="jobTitle" :rules="formRulesTW.jobTitle">
+                                <el-form-item :label="t('jobTitle')" prop="jobTitle">
                                     <el-input v-model="formData.jobTitle" :placeholder="t('jobTitle')"></el-input>
                                 </el-form-item>
 
 
-
-                                <!-- <el-form-item v-if="formData.category !== '8'"
-                                    label="醫院全稱（供每位繳費學員開立收據使用，若未填寫將以學員姓名開立。填寫錯誤恕無法重新開立）" prop="receipt"
-                                    :rules="formRulesTW.receipt">
-                                    <el-input v-model="formData.receipt" placeholder="請輸入醫院全稱"></el-input>
-                                </el-form-item> -->
-
-                                <!-- <el-form-item v-if="formData.category !== '8'" label="是否旁聽9/6醫師研討會 ? (旁聽學員不提供護理學分及午餐)"
-                                    prop="categoryExtra">
-                                    <el-radio-group v-model="formData.categoryExtra">
-                                        <el-radio value="是">是</el-radio>
-                                        <el-radio value="否">否</el-radio>
-                                    </el-radio-group>
+                                <el-form-item :label="formData.country === 'Taiwan' ? t('idCard') : t('passport')"
+                                    prop="idCard">
+                                    <el-input v-model="formData.idCard"
+                                        :placeholder="formData.country === 'Taiwan' ? t('idCard') : t('passport')"></el-input>
                                 </el-form-item>
 
-                                <el-form-item v-else label="是否旁聽9/7護理人員研討會？（旁聽學員不提供護理學分，若需學分請改報名9/7護理人員研討會場次）"
-                                    prop="categoryExtra">
-                                    <el-radio-group v-model="formData.categoryExtra">
-                                        <el-radio value="是">是</el-radio>
-                                        <el-radio value="否">否</el-radio>
-                                    </el-radio-group>
-                                </el-form-item> -->
-
-
-                                <el-form-item :label="t('captcha')" prop="verificationCode"
-                                    :rules="formRulesTW.verificationCode">
+                                <el-form-item :label="t('captcha')" required>
                                     <div class="captcha-container">
                                         <el-input v-model="formData.verificationCode"
                                             :placeholder="t('captcha')"></el-input>
@@ -144,17 +147,16 @@
                         </div>
 
                         <el-form-item>
-                            <el-button :disabled="isFormLocked || (formData.category === '9' && nurseCount > 400)"
-                                class="submit-btn" type="primary" @click="handleSubmit(registrationForm)">{{ t('submit')
+                            <el-button :disabled="isFormLocked" class="submit-btn" type="primary"
+                                @click="handleSubmit(registrationForm)">{{ t('submit')
                                 }}</el-button>
                         </el-form-item>
                     </el-form>
 
-                    <!-- <el-button @click="router.push('/registration-success')">test</el-button> -->
                 </div>
 
-                <div style="width: 80%;">
-                    <!-- <img style="width: 100%;" src="/img/agenda.png"> -->
+                <div class="agenda-box">
+                    <img v-for="agenda in agendas" :key="agenda.id" :src="`${envMinio}${agenda.path}`" alt="agenda">
                 </div>
 
             </div>
@@ -162,13 +164,19 @@
     </main>
 </template>
 <script lang="ts" setup>
-import type { FormInstance } from 'element-plus';
-import { formRulesTW } from '@/utils/validation-rules';
+import { type FormRules, type FormInstance } from 'element-plus';
+import { formRulesTW, codeMap } from '@/utils/validation-rules';
 import countryJson from '@/assets/data/countries.json';
 
-const { locales, setLocale, t } = useI18n();
-
+const { t } = useI18n();
+const localePath = useLocalePath();
 const country = ref(countryJson);
+const lang = ref('');
+
+const categorys = ref([
+    { label: '護理師(慈濟體系)', value: '2' },
+    { label: '護理師(非慈濟體系)', value: '3' },
+])
 
 const getCaptcha = async () => {
     let res = await CSRrequest.get('/member/captcha');
@@ -184,39 +192,123 @@ const captcha = reactive({
 const vaildConfirmEmail = (rule: any, value: string, callback: any) => {
 
     if (!value) {
-        callback(new Error("請再次輸入電子信箱"))
+        callback(new Error(t('confirmEmailValidate')))
     } else if (value !== formData.email) {
-        callback(new Error("兩次輸入的電子信箱不一致"))
+        callback(new Error(t('confirmEmailValidateNotMatch')))
     } else {
         callback()
     }
 }
 
 const confirmEmailRule = [
-    { required: true, message: '請再次輸入電子信箱', trigger: 'blur' },
+    { required: true, message: t('confirmEmailValidate'), trigger: 'blur' },
     { validator: vaildConfirmEmail, trigger: 'blur' }
 ];
 
+const confirmPasswordRule = [
+    { required: true, message: t('confirmPasswordValidate'), trigger: 'blur' },
+    {
+        validator: (rule: any, value: string, callback: any) => {
+            if (!value) {
+                callback(new Error(t('confirmPasswordValidate')))
+            } else if (value !== formData.password) {
+                callback(new Error(t('confirmPasswordValidateNotMatch')))
+            } else {
+                callback()
+            }
+        }, trigger: 'blur'
+    }
+]
 
-const registrationForm = ref<FormInstance>();
+const checkIdCard = (rule: any, value: string, callback: any) => {
+    if (formData.country !== 'Taiwan') {
+        callback();
+        return;
+    }
+    if (!value) callback(new Error("請輸入身分證字號"));
+    if (value) {
+        if (!/^[A-Z][0-9]{9}$/.test(value)) {
+            callback({ valid: false, message: "身份證格式不正確" });
+        }
+
+        const placeCode = codeMap[value[0]];
+        if (!placeCode) {
+            callback({ valid: false, message: "首碼無效" });
+        }
+
+        const bodyCode = value.substring(1, 9);
+        const lastCode = value[9];
+        const calHead = (num: number): number =>
+            Math.floor(num / 10) * 1 + (num % 10) * 9;
+        const calBody = (code: string): number => {
+            let sum = 0;
+            for (let i = 0; i < code.length; i++) {
+                sum += parseInt(code[i]) * (8 - i);
+            }
+            return sum;
+        };
+        const idSum =
+            calHead(placeCode) + calBody(bodyCode) + parseInt(lastCode) * 1;
+        const isValid = idSum % 10 === 0;
+        if (!isValid) {
+            callback({ valid: false, message: "身分證號不合法" });
+        } else {
+            callback();
+        }
+    }
+};
 
 const formData = reactive({
-    category: '8',
+    category: '2',
     chineseName: '',
-    country: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+    confirmPassword: '',
+    country: 'Taiwan',
     idCard: '',
     email: '',
     confirmEmail: '',
     phone: '',
+    countryCode: '886',
+    phoneNum: '',
     affiliation: '',
     jobTitle: '',
     receipt: '',
     categoryExtra: '否',
     verificationCode: '',
-    verificationKey: ''
+    verificationKey: '',
+    food: '素'
 })
+
+const formRules = computed<FormRules>(() => ({
+    chineseName: [{ required: formData.country === 'Taiwan', message: t('chineseNameValidate'), trigger: "blur" }],
+    firstName: [{ required: true, message: t('firstNameValidate'), trigger: "blur" }],
+    lastName: [{ required: true, message: t('lastNameValidate'), trigger: "blur" }],
+    email: [{ required: true, message: t('emailValidate'), trigger: "blur" }],
+    confirmEmail: confirmEmailRule,
+    countryCode: [{ required: true, message: t('phoneNumValidate'), trigger: "blur" }],
+    receipt: [{ required: true, message: t('hospitalValidate'), trigger: "change" }],
+    country: [{ required: true, message: t('countryValidate'), trigger: "change" }],
+    idCard: [{ required: formData.country === 'Taiwan', validator: checkIdCard, trigger: "blur" }],
+    // password: [{ required: true, message: t('passwordValidate'), trigger: "blur" }],
+    // confirmPassword: confirmPasswordRule,
+    affiliation: [{ required: true, message: t('affiliationValidate'), trigger: "blur" }],
+    jobTitle: [{ required: true, message: t('jobTitleValidate'), trigger: "blur" }],
+    category: [{ required: true, message: t('categoryValidate'), trigger: "change" }],
+}))
+
+
+const registrationForm = ref<FormInstance>();
+
+
 // 送出資料後將立即跳轉至付款頁面，如未完成付款資料將於一天後刪除
 const router = useRouter();
+
+const submitMessage = () => {
+
+}
+
 const handleSubmit = (formEl: FormInstance | undefined) => {
     if (!formEl) return;
 
@@ -224,64 +316,59 @@ const handleSubmit = (formEl: FormInstance | undefined) => {
         if (valid) {
             // 提交表單邏輯
             formData.verificationKey = captcha.key; // 將驗證碼key添加到表單數據中
-            if (formData.category === '9') {
-                ElMessageBox.confirm(
-                    '送出申請後，將寄送繳費連結至信箱，請於信箱中的付款連結進行付款，24小時內未付款完成請重新註冊',
-                    '提示',
-                    {
-                        confirmButtonText: '確定',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    }
-                ).then(async () => {
-                    // 確認後提交表單
-                    let res = await CSRrequest.post('/member', {
+            formData.phone = formData.countryCode + '-' + formData.phoneNum; // 將國碼和電話號碼合併
+
+            if (formData.category === '3') {
+                ElMessageBox.confirm(t('registrationInfo2'), t('registrationInfoTitle'), {
+                    confirmButtonText: t('confirm'),
+                    cancelButtonText: t('cancel'),
+                    type: 'warning',
+                }).then(async () => {
+                    let res = await CSRrequest.post(`/member`, {
                         body: formData
                     });
-                    console.log(res)
                     if (res.code === 200) {
-                        console.log('提交結果', res);
-                        ElMessage.success('報名成功'); formEl.resetFields(); // 重置表單 
-                        getCaptcha(); // 重新獲取驗證碼
-                        if (res.data) {
-                            console.log('重定向到', res.data);
-                            router.push('/registration-success?category=9');
-                            // router.push(res.data);
-                        }
+                        ElNotification({
+                            title: '報名成功',
+                            message: res.msg,
+                            type: 'success',
+                        });
+                        formEl.resetFields(); // 重置表單
+                        router.push(localePath('/registration-success?category=3'));
                     } else {
-                        ElMessage({
-                            message: `報名失敗 : ${res.msg}`,
-                            type: 'error'
-                        }); getCaptcha(); // 重新獲取驗證碼
-                        console.error('報名失敗', res);
+                        ElNotification({
+                            title: '報名失敗',
+                            message: res.msg,
+                            type: 'error',
+                        });
+                        getCaptcha(); // 重新獲取驗證碼
                     }
                 }).catch(() => {
-                    console.log('取消報名');
-                });
-            } else {
-                let res = await CSRrequest.post(`/member?category=${formData.category}`, {
-                    body: formData
-                });
-                console.log(res);
-                if (res.code === 200) {
-                    console.log('提交結果', res);
-                    ElMessage.success('報名成功'); formEl.resetFields(); // 重置表單
                     getCaptcha(); // 重新獲取驗證碼
-
-                    // if (res.data) {
-                    // console.log('重定向到', res.data);
-                    // router.push(res.data);
-                    router.push('/registration-success');
-                    // }
-                } else {
-                    ElMessage({
-                        message: `報名失敗 : ${res.msg}`,
-                        type: 'error'
-                    });
-                    getCaptcha(); // 重新獲取驗證碼
-                    console.error('報名失敗', res);
-                }
+                });
+                return;
             }
+
+            let res = await CSRrequest.post(`/member`, {
+                body: formData
+            });
+            if (res.code === 200) {
+                ElNotification({
+                    title: '報名成功',
+                    message: res.msg,
+                    type: 'success',
+                });
+                formEl.resetFields(); // 重置表單
+                router.push(localePath('/registration-success'));
+            } else {
+                ElNotification({
+                    title: '報名失敗',
+                    message: res.msg,
+                    type: 'error',
+                });
+                getCaptcha(); // 重新獲取驗證碼
+            }
+
         } else {
             console.error('表單驗證失敗');
             ElMessage.error('請檢查表單輸入是否正確');
@@ -290,16 +377,6 @@ const handleSubmit = (formEl: FormInstance | undefined) => {
     });
 };
 
-
-const nurseCount = ref(0);
-const fetchNurseCount = async () => {
-    let res: any = await CSRrequest.get('/member/nurse-count');
-    if (res.code === 200) {
-        nurseCount.value = Number(res.data);
-    } else {
-        console.error('獲取護理人員數量失敗', res);
-    }
-};
 
 const isFormLocked = ref(false);
 
@@ -310,16 +387,35 @@ function checkDeadline() {
     const now = new Date();
     isFormLocked.value = now > deadline;
 }
-
-
 onMounted(() => {
     getCaptcha();
-    fetchNurseCount();
 
     // 判斷截止時間
     checkDeadline(); // 頁面載入時檢查一次
     setInterval(checkDeadline, 1000 * 60); // 每分鐘檢查一次
+    nextTick(() => {
+        lang.value = localStorage.getItem('lang') || 'zh'; // 頁面載入後獲取語言設定
+    })
 });
+
+const envMinio = useRuntimeConfig().public.minio
+console.log('envMinio', envMinio)
+
+
+const agendas = ref<any[]>([])
+const fetchAgendaFile = async () => {
+    try {
+        const res: any = await CSRrequest.get(`/publish-file/agenda`)
+        agendas.value = res.data
+        console.log('agendas', agendas.value)
+    } catch (error) {
+        console.error('Error fetching agenda file:', error);
+    }
+}
+
+onMounted(() => {
+    fetchAgendaFile()
+})
 
 
 
@@ -356,6 +452,11 @@ onMounted(() => {
                 font-weight: bold;
                 color: #333;
                 margin-bottom: 20px;
+            }
+
+            .event-date {
+                font-size: 1.5rem;
+                color: #666;
             }
 
             .btn-box {
@@ -459,6 +560,69 @@ onMounted(() => {
                     .right-section {
                         flex: 1;
 
+                        .english-name {
+                            display: flex;
+                            gap: 1rem;
+
+                            @media screen and (max-width: 768px) {
+                                flex-direction: column;
+                                gap: 1rem;
+                            }
+                        }
+
+                        .member-phone {
+                            display: flex;
+                            gap: 2rem;
+
+                            .country-code {
+                                flex: 1;
+
+                                .country-code-inner {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 2rem;
+
+                                    :deep(.el-input) {
+                                        flex: 2;
+                                    }
+                                }
+
+                            }
+
+                            .oversea-phone-num {
+                                flex: 2;
+
+                                :deep(.el-form-item__label) {
+                                    color: white;
+                                    position: relative;
+
+                                    &::after {
+                                        position: absolute;
+                                        content: 'Country Code+number';
+                                        color: red;
+                                        font-size: 0.7rem;
+                                        right: 0;
+                                    }
+                                }
+                            }
+
+                            .domestic-phone-num {
+                                flex: 2;
+
+                                :deep(.el-form-item__label) {
+                                    color: white;
+                                    position: relative;
+
+                                    &::after {
+                                        position: absolute;
+                                        content: '國碼+電話號碼';
+                                        color: red;
+                                        font-size: 0.7rem;
+                                        right: 0;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -513,6 +677,16 @@ onMounted(() => {
                 color: red;
                 font-size: 0.9rem;
                 margin-top: 10px;
+            }
+        }
+
+        .agenda-box {
+            width: 80%;
+            margin: 0 auto;
+
+            img {
+                width: 100%;
+                margin-bottom: 20px;
             }
         }
 

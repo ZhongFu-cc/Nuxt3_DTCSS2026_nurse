@@ -2,7 +2,7 @@ import type { FormRules } from "element-plus";
 /**-----------------------------------特殊校驗方法------------------------------ */
 
 // 身分證校驗
-const codeMap: Record<string, number> = {
+export const codeMap: Record<string, number> = {
   A: 10,
   B: 11,
   C: 12,
@@ -66,8 +66,6 @@ const checkIdCard = (rule: any, value: string, callback: any) => {
   }
 };
 
-
-
 /**-----------------------------------中文校驗------------------------------ */
 export const formRulesTW = reactive<FormRules>({
   chineseName: [{ required: true, message: "請輸入中文名", trigger: "blur" }],
@@ -88,6 +86,7 @@ export const formRulesTW = reactive<FormRules>({
     { required: true, message: "請輸入驗證碼", trigger: "blur" },
   ],
   receipt: [{ required: true, message: "請填寫醫院", trigger: "change" }],
+  password: [{ required: true, message: "請輸入密碼", trigger: "blur" }],
 });
 
 /**-----------------------------------英文校驗------------------------------ */

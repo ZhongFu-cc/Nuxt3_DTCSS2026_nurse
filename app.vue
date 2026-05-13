@@ -2,17 +2,13 @@
   <!-- 最外層新增一個wrapper,是為了搭配content 撐開中間內容為空的路由組件來達成一頁的效果  -->
   <div class="wrapper">
 
-    <!-- 共用的Header -->
-    <!-- <Header @open-menu="openMenu" :isActive="isActive"></Header> -->
     <Menu class="menu-bar" @open-menu="openMenu" :isActive="isActive"></Menu>
-    <MobileMenu class="mobile-menu" v-if="isActive" @close-menu="closeMenu"></MobileMenu>
     <!-- 先用一個main標籤將之後要顯示的路由組件包起來 -->
     <main class="content" :class="{ 'is-open': isActive }">
       <NuxtPage></NuxtPage>
     </main>
 
     <!-- 共用的Footer -->
-    <!-- <Bottom /> -->
     <Footer ref="footerRef"></Footer>
   </div>
 
@@ -20,11 +16,8 @@
 
 <script setup lang="ts">
 
-import Header from './components/layout/Header.vue';
 import Menu from '@/components/layout/Menu.vue';
-import Bottom from '@/components/layout/Bottom.vue';
 import Footer from '@/components/layout/Footer.vue';
-import MobileMenu from './components/layout/MobileMenu.vue';
 import { ref } from 'vue';
 
 const { locale, setLocale, t } = useI18n();
