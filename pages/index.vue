@@ -5,10 +5,9 @@
             <div class="content">
                 <div class="conference-info-box">
 
-                    <h1 class="topic">Good line Good life - 護理場</h1>
-                    <h1 class="topic">大林慈濟第十四屆血液透析瘻管治療與照護國際研討會</h1>
-                    <p class="event-date">{{ t('eventDate') }}</p>
-                    <p>{{ t('eventTime') }}​</p>
+                    <h1 class="topic">Good line Good life - 週日護理場</h1>
+                    <h1 class="topic">第十四屆大林慈濟醫院血液透析通路治療與照護國際研討會</h1>
+                    <p class="topic">{{ t('eventDate') }}</p>
                     <p>{{ t('eventLocation') }}</p>
                 </div>
                 <div class="conference-registration-box">
@@ -17,7 +16,7 @@
 
                         <div class="warning-text" style="text-align: center;font-size: 1.2rem;">{{ isFormLocked ?
                             '報名時間已截止，感謝您的熱情參與' : ''
-                            }}</div>
+                        }}</div>
 
                         <div class="things-to-note">
                             <h2>{{ t('registrationReminder') }}</h2>
