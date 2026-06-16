@@ -5,8 +5,8 @@
                 <img src="/assets/img/check.png" alt="">
             </div>
             <h1>報名成功！</h1>
-            <p>請至電子信箱確認您的報名資訊。</p>
-            <p v-if="category == '3'">護理師繳費連結請至信箱查看</p>
+            <p class="notice">請至電子信箱確認您的報名資訊。</p>
+            <p v-if="category == '3'" class="notice2">護理師繳費連結請至信箱查看</p>
             <p>如有任何問題，請聯繫 joanne.wang@zhongfu-pr.com.tw</p>
             <nuxt-link :to="localePath('/')" class="back-home-link">返回首頁</nuxt-link>
         </el-card>
@@ -34,6 +34,7 @@ const category = route.query.category
         background-color: #f9f9f9;
         border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
 
         h1 {
             color: #71B132;
@@ -60,6 +61,17 @@ const category = route.query.category
             &:hover {
                 text-decoration: underline;
             }
+        }
+
+        .notice {
+            font-size: 1.8rem;
+        }
+
+        .notice2 {
+            color: #71B132;
+            font-size: 1.8rem;
+            font-weight: bold;
+
         }
     }
 }
