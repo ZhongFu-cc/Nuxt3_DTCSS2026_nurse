@@ -83,7 +83,7 @@
   "cancel": "取消",
   "hospital": "醫療機構名稱",
   "registrationReminder": "報名須知",
-  "eventDate": "活動日期 : 08/23 (日) 護士場",
+  "eventDate": "活動日期 : 08/23 (日) 護理場",
   "eventTime": "活動時間 :  08:30-12:00 ",
   "eventLocation": "活動地點 : 大林慈濟醫院 大愛樓 5F大講堂 (嘉義縣大林鎮民生路2號)",
   "personalDataNotice": "個人資料蒐集、處理及利用告知暨同意書                                 為完成本活動之報名與後續聯繫事宜，主辦單位將蒐集您於本表單中所提供之個人資料（包括但不限於姓名、聯絡方式、電子郵件等）。",
@@ -93,7 +93,7 @@
   "hospitalValidate": "請輸入所屬醫療機構",
   "captchaValidate": "請輸入驗證碼",
   "passport": "護照號碼",
-  "registrationInfo3": "本活動不提供退費",
+  "registrationInfo3": "報名費250元，請於三天內完成繳費，繳費完成後不提供退款",
   "hospital1": "醫療機構名稱(收據抬頭統編)",
   "registrationInfoTitle": "報名提醒",
   "enterEmail": "Please enter your registered email address"

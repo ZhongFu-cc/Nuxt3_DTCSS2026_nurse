@@ -159,7 +159,7 @@
   "confirmPasswordValidateNotMatch": "Confirm password not match",
   "confirmEmailValidateNotMatch": "The email addresses do not match\t",
   "passport": "Passport Number",
-  "registrationInfo3": "No refunds will be provided for this event.",
+  "registrationInfo3": "The registration fee is NT$250. Please complete the payment within 3 days. Once paid, no refunds will be issued.",
   "hospital1": "Hospital",
   "registrationInfoTitle": "Registration Info",
   "enterEmail": "Please enter your registered email address"
