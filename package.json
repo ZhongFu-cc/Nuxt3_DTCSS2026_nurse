@@ -18,11 +18,13 @@
     "axios": "^1.6.8",
     "ckeditor5": "^43.2.0",
     "nuxt": "^3.10.3",
+    "pinia": "^3.0.4",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "@element-plus/nuxt": "^1.0.8",
+    "@pinia/nuxt": "^0.11.3",
     "element-plus": "^2.6.2",
     "sass": "^1.71.1",
     "sass-loader": "^16.0.2"

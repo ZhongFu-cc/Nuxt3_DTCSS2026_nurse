@@ -36,7 +36,7 @@
   "firstName": "First Name",
   "lastName": "Last Name",
   "chineseName": "Chinese Name",
-  "email": "Email",
+  "email": "Email(Only 1 registration; Gmail recommended; required for post-course survey)",
   "email2": "Confirm Email",
   "password": "Password(Login Password)",
   "confirmPassword": "Confirm Password",
@@ -148,7 +148,7 @@
   "hospital": "Hospital",
   "selectCountry": "Select Country",
   "registrationReminder": "Notice",
-  "eventDate": "Event Day: 08/23 (Sun.)",
+  "eventDate": "Event Day: 08/23 (Sun.) Nurse's session",
   "eventTime": "Time: 08/23 (Sun.) 08:30-12:00 ",
   "eventLocation": "Location : 大林慈濟醫院 大愛樓 5F大講堂 (嘉義縣大林鎮民生路2號)\t",
   "personalDataNotice": "ersonal Data Collection, Processing, and Use Notification and Consent Form  To facilitate registration and subsequent communication for this event, the organizer will collect the personal information provided by you in this form (including but not limited to name, contact information, email address, etc.).",
@@ -159,7 +159,8 @@
   "confirmPasswordValidateNotMatch": "Confirm password not match",
   "confirmEmailValidateNotMatch": "The email addresses do not match\t",
   "passport": "Passport Number",
-  "registrationInfo3": "No refunds will be provided for this event.",
+  "registrationInfo3": "The registration fee is NT$250. Please complete the payment within 3 days. Once paid, no refunds will be issued.",
   "hospital1": "Hospital",
-  "registrationInfoTitle": "Registration Info"
+  "registrationInfoTitle": "Registration Info",
+  "enterEmail": "Please enter your registered email address"
 }

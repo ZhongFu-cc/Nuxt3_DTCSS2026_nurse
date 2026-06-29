@@ -95,6 +95,11 @@ const getFillableForm = async () => {
     console.log("CSR獲取: ", res)
     Object.assign(fillableForm, res.data)
     console.log("fillable Form為:", fillableForm)
+    if (fillableForm.requireLogin === 1) {
+        definePageMeta({
+            middleware: 'auth'
+        })
+    }
 }
 
 const componentMap: Record<FieldType, any> = {
