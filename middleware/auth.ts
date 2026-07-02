@@ -14,7 +14,12 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         memberInfo.value = null
 
         if (to.path !== localePath('/login')) {
-            return navigateTo(localePath('/login'))
+            return navigateTo({
+                path: localePath('/event-survey-login'),
+                query: {
+                    redirect: to.fullPath
+                }
+            })
         }
         return
     }
@@ -30,7 +35,12 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
                 localStorage.removeItem('Authorization-member')
                 isLogin.value = false
                 memberInfo.value = null
-                return navigateTo(localePath('/login'))
+                return navigateTo({
+                    path: localePath('/event-survey-login'),
+                    query: {
+                        redirect: to.fullPath
+                    }
+                })
             }
         } catch (error: any) {
             // 1. 在伺服器端終端機列印錯誤，方便開發時除錯
@@ -47,7 +57,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
                 memberInfo.value = null;
 
                 // 導向登入頁
-                const loginPath = localePath('/login');
+                const loginPath = localePath('/event-survey-login');
                 if (to.path !== loginPath) {
                     return navigateTo(loginPath);
                 }
@@ -55,7 +65,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         }
     }
 
-    if (isLogin.value && to.path === localePath('/login')) {
+    if (isLogin.value && to.path === localePath('/event-survey-login')) {
         return navigateTo(localePath('/'))
     }
 })

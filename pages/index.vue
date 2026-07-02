@@ -5,9 +5,8 @@
             <div class="content">
                 <div class="conference-info-box">
 
-                    <h1 class="topic">Good line Good life - 週日護理場</h1>
                     <h1 class="topic">第十四屆大林慈濟醫院血液透析通路治療與照護國際研討會</h1>
-                    <p class="topic">{{ t('eventDate') }}</p>
+                    <p class="event-date">{{ t('eventDate') }}</p>
                     <p>{{ t('eventLocation') }}</p>
                 </div>
                 <div class="conference-registration-box">
@@ -16,7 +15,7 @@
 
                         <div class="warning-text" style="text-align: center;font-size: 1.2rem;">{{ isFormLocked ?
                             '報名時間已截止，感謝您的熱情參與' : ''
-                        }}</div>
+                            }}</div>
 
                         <div class="things-to-note">
                             <h2>{{ t('registrationReminder') }}</h2>
@@ -49,7 +48,7 @@
                                 <el-form-item :label="t('chineseName')" prop="chineseName">
                                     <el-input v-model="formData.chineseName" :placeholder="t('chineseName')"></el-input>
                                 </el-form-item>
-
+                                <!-- 
                                 <div class="english-name">
                                     <el-form-item :label="t('firstName')" prop="firstName">
                                         <el-input v-model="formData.firstName" :placeholder="t('firstName')"></el-input>
@@ -58,7 +57,7 @@
                                     <el-form-item :label="t('lastName')" prop="lastName">
                                         <el-input v-model="formData.lastName" :placeholder="t('lastName')"></el-input>
                                     </el-form-item>
-                                </div>
+                                </div> -->
 
                                 <el-form-item :label="t('email')" prop="email">
                                     <el-input v-model="formData.email" :placeholder="t('email')"></el-input>
@@ -281,7 +280,7 @@ const formData = reactive({
 })
 
 const formRules = computed<FormRules>(() => ({
-    chineseName: [{ required: formData.country === 'Taiwan', message: t('chineseNameValidate'), trigger: "blur" }],
+    chineseName: [{ required: true, message: t('chineseNameValidate'), trigger: "blur" }],
     firstName: [{ required: true, message: t('firstNameValidate'), trigger: "blur" }],
     lastName: [{ required: true, message: t('lastNameValidate'), trigger: "blur" }],
     email: [{ required: true, message: t('emailValidate'), trigger: "blur" }],
@@ -455,7 +454,9 @@ onMounted(() => {
 
             .event-date {
                 font-size: 1.5rem;
-                color: #666;
+                font-weight: bold;
+                color: #894a4a;
+                margin-bottom: 20px;
             }
 
             .btn-box {

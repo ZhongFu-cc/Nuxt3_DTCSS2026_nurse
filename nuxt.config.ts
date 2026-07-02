@@ -89,11 +89,7 @@ export default defineNuxtConfig({
     enabled: false  //預設為true
   },
   //使用模塊,Element Plus
-  modules: [
-    '@element-plus/nuxt',
-    '@nuxt/image',
-    '@nuxtjs/i18n'
-  ],
+  modules: ['@element-plus/nuxt', '@nuxt/image', '@nuxtjs/i18n', "@pinia/nuxt"],
   //這是一個配置項,如果有報錯是暫時的,安裝完依賴,重開Vscode, 以及npm run dev跑一次
   elementPlus: {
     //預設icon是不會自動引入的,預設為false, 他只接受String | false 兩種配置
