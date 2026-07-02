@@ -35,7 +35,7 @@
   "title": "Title",
   "firstName": "First Name",
   "lastName": "Last Name",
-  "chineseName": "Chinese Name",
+  "chineseName": "Name",
   "email": "Email(Only 1 registration; Gmail recommended; required for post-course survey)",
   "email2": "Confirm Email",
   "password": "Password(Login Password)",
