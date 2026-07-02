@@ -26,7 +26,7 @@
   "titleValidate": "請選擇稱謂",
   "firstNameValidate": "請輸入英文名字",
   "lastNameValidate": "請輸入英文姓氏",
-  "chineseNameValidate": "請輸入中文姓名",
+  "chineseNameValidate": "請輸入姓名",
   "emailValidate": "請輸入電子郵件",
   "emailValidateFormat": "請輸入有效的電子郵件地址",
   "confirmEmailValidate": "請輸入確認電子郵件",
