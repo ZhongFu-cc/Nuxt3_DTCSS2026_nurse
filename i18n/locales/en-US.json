@@ -56,7 +56,7 @@
   "titleValidate": "Please select a title",
   "firstNameValidate": "Please enter your first name",
   "lastNameValidate": "Please enter your last name",
-  "chineseNameValidate": "Please input chinese name",
+  "chineseNameValidate": "Please input name",
   "emailValidate": "Please enter your email",
   "emailValidate2": "Please enter a valid email address",
   "confirmEmail": "Please confirm your email",
