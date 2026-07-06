@@ -1,6 +1,6 @@
 <template>
     <main class="common-section">
-
+        <Banner></Banner>
         <div class="main-section">
             <div class="content">
                 <div class="conference-info-box">
@@ -15,7 +15,7 @@
 
                         <div class="warning-text" style="text-align: center;font-size: 1.2rem;">{{ isFormLocked ?
                             '報名時間已截止，感謝您的熱情參與' : ''
-                            }}</div>
+                        }}</div>
 
                         <div class="things-to-note">
                             <h2>{{ t('registrationReminder') }}</h2>
@@ -165,6 +165,7 @@
 import { type FormRules, type FormInstance } from 'element-plus';
 import { formRulesTW, codeMap } from '@/utils/validation-rules';
 import countryJson from '@/assets/data/countries.json';
+import Banner from '@/components/layouts/Banner.vue';
 
 const { t } = useI18n();
 const localePath = useLocalePath();
