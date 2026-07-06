@@ -1,6 +1,6 @@
 <template>
     <main class="common-section">
-
+        <Banner></Banner>
         <div class="main-section">
             <div class="content">
                 <div class="conference-info-box">
@@ -165,6 +165,7 @@
 import { type FormRules, type FormInstance } from 'element-plus';
 import { formRulesTW, codeMap } from '@/utils/validation-rules';
 import countryJson from '@/assets/data/countries.json';
+import Banner from '@/components/layout/Banner.vue';
 
 const { t } = useI18n();
 const localePath = useLocalePath();
