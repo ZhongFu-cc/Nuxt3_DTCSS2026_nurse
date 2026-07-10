@@ -53,7 +53,7 @@ const translationMenuState = ref({
 </script>
 <style lang="scss" scoped>
 .menu-container {
-    background-color: #19254e;
+    background: linear-gradient(90deg, #0052d4 0%, #011144 15%, #150a21 100%);
     width: 100%;
     height: auto;
     display: flex;
@@ -62,13 +62,14 @@ const translationMenuState = ref({
 
     .logo-container {
         width: 30%;
+        padding: 0.5rem 0;
 
         .logo-image-box {
-            width: 27rem;
+            width: 25rem;
             height: 100%;
 
             .logo {
-                width: 27rem;
+                width: 25rem;
                 height: 100%;
                 object-fit: contain;
             }
@@ -99,6 +100,7 @@ const translationMenuState = ref({
             padding: 1rem;
             border: #19254e solid 1px;
             border-radius: 8px;
+            z-index: 1000;
 
             .el-button {
                 color: #19254e;
