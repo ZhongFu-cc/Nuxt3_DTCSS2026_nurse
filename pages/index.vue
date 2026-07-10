@@ -377,24 +377,21 @@ const handleSubmit = (formEl: FormInstance | undefined) => {
 };
 
 
-const isFormLocked = ref(false);
+const { setting, fetchSetting } = useSetting();
+// const isFormLocked = ref(false);
+const isFormLocked = computed(() => {
+    if (!setting.value) return false; // 如果設定尚未加載，預設為不鎖定
+    return !setting.value.isRegistrationOpen;
+});
 
-//判斷截止時間
-function checkDeadline() {
-    const deadline = new Date('2026-08-07T23:59:59'); // 設定截止時間
-    // const deadline = new Date('2025-08-13T10:27:30'); // 設定截止時間
-    const now = new Date();
-    isFormLocked.value = now > deadline;
-}
 onMounted(() => {
     getCaptcha();
 
     // 判斷截止時間
-    checkDeadline(); // 頁面載入時檢查一次
-    setInterval(checkDeadline, 1000 * 60); // 每分鐘檢查一次
     nextTick(() => {
         lang.value = localStorage.getItem('lang') || 'zh'; // 頁面載入後獲取語言設定
     })
+    fetchSetting();
 });
 
 const envMinio = useRuntimeConfig().public.minio
