@@ -147,7 +147,7 @@ onBeforeMount(() => {
   .content {
     flex-grow: 1;
     position: relative;
-    margin-top: 6rem;
+    // margin-top: 6rem;
   }
 
 
